@@ -49,36 +49,43 @@ clf = LinearRegression()
 clf.fit(X_train, y_train)
 
 accu = clf.score(X_test, y_test)
-
+print(accu)
 forecast_set = clf.predict(X_late)
 
 ##This gives the predicted values for the data we did not have.
-print(forecast_set)
+#print(forecast_set)
 
 
 ## Creates a new column used for plotting, might take too much time to explpain, can show as it is
-df['Forecast'] = np.nan
+# df['Forecast'] = np.nan
+#
+# last_date = df.iloc[-1].name
+# last_unix = last_date.timestamp()
+# one_da = 86400
+# next_unix = last_unix + one_da
+#
+# for i in forecast_set:
+# 	next_date = datetime.datetime.fromtimestamp(next_unix)
+# 	next_unix += one_da
+# 	df.loc[next_date] = [np.nan for _ in range(len(df.columns)-1)] + [i]
+#
+# print(df['Forecast'])
 
-last_date = df.iloc[-1].name
-last_unix = last_date.timestamp()
-one_da = 86400
-next_unix = last_unix + one_da
-
-for i in forecast_set:
-	next_date = datetime.datetime.fromtimestamp(next_unix)
-	next_unix += one_da
-	df.loc[next_date] = [np.nan for _ in range(len(df.columns)-1)] + [i]
-
-print(df['Forecast'])
-
-df['Adj. Close'].plot()
-df['Forecast'].plot()
-plt.legend(loc=4)
-plt.xlabel('Date')
-plt.ylabel('Price')
-plt.show()
-
-
+# df['Adj. Close'].plot()
+# df['Forecast'].plot()
+# plt.legend(loc=4)
+# plt.xlabel('Date')
+# plt.ylabel('Price')
+# plt.show()
 
 
 
+print('Confidence using SVM')
+clf = svm.SVR()
+
+clf.fit(X_train, y_train)
+
+accu = clf.score(X_test, y_test)
+pred = clf.pred(X_late)
+
+print(accu)

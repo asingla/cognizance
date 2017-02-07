@@ -20,7 +20,7 @@ model.fit(X_train, Z_train)
 accu = model.score(X_test, Z_test)
 predicted = model.predict(X_test)
 print(Z_test)
-predicted = np.round(predicted)
+predicted = np.ceil(predicted)
 print(predicted)
 
 print(metrics.classification_report(Z_test, predicted))
